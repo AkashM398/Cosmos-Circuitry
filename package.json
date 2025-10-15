@@ -1,0 +1,53 @@
+{
+  "name": "okta-cross-app-access-mcp-node-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "yarn workspaces foreach -A run postinstall",
+    "dev:todo": "yarn workspace todo0 dev",
+    "auth:todo": "yarn workspace authorization-server server:todo",
+    "auth:agent": "yarn workspace authorization-server server:agent",
+    "start:todo0": "yarn workspace todo0 start",
+    "build:todo": "yarn workspace todo0 build",
+    "resetdb": "yarn workspace agent0 resetdb && yarn workspace todo0 resetdb",
+    "migratedb": "yarn workspace todo0 migratedb",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --cache",
+    "lint:fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "setup:env": "node scripts/setup-env.js",
+    "bootstrap": "node scripts/bootstrap.js",
+    "start": "concurrently --names \"agent0,auth-agent,todo0,auth-todo\" --prefix-colors \"cyan,magenta,green,red\"  --output-path logs/dev-agent0.log \"yarn dev:agent0\" \"yarn auth:agent\" \"yarn dev:todo\" \"yarn auth:todo\"",
+    "open:apps": "node scripts/open-apps.js",
+    "expose:ports": "node scripts/github/expose-ports.js",
+    "replace:env": "node scripts/github/replace-env.js",
+    "build:agent0": "yarn workspace agent0 build",
+    "dev:agent0": "yarn workspace agent0 dev",
+    "start:agent0": "yarn workspace agent0 start",
+    "clean:agent0": "yarn workspace agent0 clean"
+  },
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^9.32.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-typescript": "^18.0.0",
+    "eslint-config-prettier": "^8.10.0",
+    "eslint-import-resolver-typescript": "^3.6.1",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.1",
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2",
+    "tsx": "^4.20.3"
+  },
+  "workspaces": [
+    "./packages/*"
+  ],
+  "packageManager": "yarn@4.2.2"
+}
